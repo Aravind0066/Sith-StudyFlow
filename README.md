@@ -6,37 +6,32 @@ Welcome to **Sith StudyFlow**, a Streamlit-powered productivity dashboard infuse
 
 ## 🧩 Problem Statement
 
-As a student, I was frustrated switching between:
-- 🎧 Spotify for music,
-- 📝 Excel/Notion for schedules and task tracking,
-- 🤖 ChatGPT for help with questions.
+As students, we often juggle multiple tools:
 
-So I decided to **combine all three** into a **single app** that integrates:
+- 🎧 **Spotify** for music  
+- 📝 **Notion/Excel** for schedules and task tracking  
+- 🤖 **ChatGPT** for questions and productivity help
+
+Constantly switching between them felt fragmented and inefficient. So, we decided to combine all three into one unified platform:
+
 > 🎶 Mood-based music + 🗓️ Productivity planner + 🤖 AI assistant
 
-One of the key ideas was to detect the **user's mood dynamically from the chatbot conversation history** and play music that matches that mood automatically.
+This is a **basic prototype** built during a **Star Wars-themed hackathon** and has **massive potential for future scaling**.
 
-> For example:
-> - If you're stressed or angry → play **intense** tracks  
-> - If you're relaxed → play **calm** tracks  
-> - If you're focused and asking many questions → play **focus** tracks  
-
-Originally, we planned to **integrate with the Spotify API** so that the detected mood would **trigger playback of matching Spotify playlists**. However, due to time constraints, we currently include only a limited set of **local music files**.
-
-This is a **basic prototype** built during a hackathon and can be **scaled significantly** in the future.
-
-> ⚠️ **Note:** Only limited local music tracks are included for now.  
-Spotify API integration was attempted but not completed in time.
+> ⚠️ **Note:**  
+> - Only limited local music tracks are available right now.  
+> - Spotify API was attempted but couldn’t be integrated in time.  
+> - The chatbot's mood-based history could eventually be used to **trigger dynamic playlist changes on Spotify** based on how the user feels — an idea for future development!
 
 ---
 
 ## 🌟 Features
 
 ### 1. 🤖 AI Chatbot (Groq API Powered)
-- Chat with an LLM assistant using **Groq’s blazing-fast API**.
-- Memory-enabled session: remembers previous messages.
-- Session manager: rename, delete, and export chat logs.
-- Clean conversational flow with emoji-enhanced replies.
+- Chat with a large language model using **Groq’s ultra-fast API**.
+- Built-in **memory support**: the bot remembers your past queries.
+- Session manager with options to **rename, delete, and export chats**.
+- Natural conversational tone with emojis, context understanding, and productivity intent tagging.
 
 > **Try this:**  
 > 🗣️ “Add a schedule at 4PM to study DSA”  
@@ -45,76 +40,81 @@ Spotify API integration was attempted but not completed in time.
 
 ---
 
-### 2. 🦹 Sith Mode Toggle (Chatbot Personality)
-- **The Sith toggle transforms the chatbot's behavior and tone — not the UI.**
-- Inspired by the Star Wars theme of the hackathon.
-- Toggle between:
-  - 🧑 **Normal Mode** → Polite, helpful assistant  
-  - 🦹 **Sith Mode** → Sarcastic, dark, and cunning like Darth Sidious  
-- Makes interaction fun, immersive, and themed around Star Wars.
+### 2. 🦹 Sith Mode Toggle (Chatbot Personality, Not UI)
+
+Located on the **left sidebar**, this is one of the most **unique and immersive** features.
+
+> ⚠️ This **does NOT change the UI** — it alters the **AI chatbot’s behavior and tone**.
+
+- In **Normal Mode**, the bot is friendly, supportive, and helpful.
+- In **Sith Mode**, the chatbot becomes a **dark, sarcastic, Darth Sidious-like assistant**.
+- All responses are themed around **Sith ideology**, sarcasm, and power.
+
+#### 🧪 Example:
+
+| Mode          | Response                                                                 |
+|---------------|--------------------------------------------------------------------------|
+| Normal Mode   | “Sure! I've scheduled your DSA session at 4PM. Don’t forget to take breaks!” |
+| Sith Mode     | “Excellent… your fate to study DSA at 4PM is now sealed. The dark side approves.” |
+
+> 🦹 Flip the toggle and experience the dark side through AI.
 
 ---
 
 ### 3. 📅 Schedule Planner
-- Add and manage day-based schedules.
-- View today's schedule prominently.
-- Automatically stores time-tagged entries for better planning.
+- Add schedules with time-based entries.
+- Auto-sorted by time.
+- Today's tasks appear prominently.
 
 ---
 
 ### 4. ✅ Task Manager
-- Create, complete, and delete tasks.
-- Tasks are session-persistent.
-- Clean UI with Sith-themed visuals.
+- Add tasks, mark them complete, or delete them.
+- Tasks persist across sessions.
+- Simple UI built for flow-state productivity.
 
 ---
 
 ### 5. 📝 Notes Section
-- Quick note-taking with titles.
-- All notes saved in-session.
-- Minimal distraction, focused writing area.
+- Add short notes with titles.
+- Meant for study tips, reminders, or scratchpad use.
 
 ---
 
 ### 6. 🎧 Mood-Based Music Player
-- Background audio changes based on selected mood:
-  - Calm
-  - Focus
-  - Intense
-- Blurred, semi-transparent music widget adds to aesthetic.
+- Select mood (Calm, Focus, Intense) to change music vibe.
+- Background music auto-updates based on mood.
+- Semi-transparent, blurred audio widget for clean UX.
 
-> ⚠️ Currently, only a few local songs are available.  
-Spotify API integration was not completed in time.
+> 💡 Currently uses a **local playlist** due to time limits.  
+> Planned: dynamic Spotify playlist switching based on chatbot emotion.
+
+> 👀 **Don't miss the tiny 3D rocket animation in Pomodoro timer!** 🚀
 
 ---
 
 ### 7. 🧠 Chat History Manager
-- Maintain multiple chat sessions.
-- Rename, delete, and export past conversations.
-- Inline operations (hover menu) for session control.
-
----
-
-### 8. 🚀 Pomodoro Timer
-- Classic 25–5 Pomodoro technique to stay focused.
-- Task tracking linked with Pomodoro intervals.
-- **✨ Check this out:** A small animated 3D rocket appears when the timer starts!
+- View all previous chat sessions.
+- Rename chats, delete old ones, and export to `.txt`.
+- Hover-based controls for minimal clutter.
 
 ---
 
 ## ✨ Why Star Wars Theme?
 
-This project was built for a **Star Wars-themed hackathon**, so we embraced the dark and powerful aura of the Sith. UI and interactions reflect the mood of:
-- 🦹‍♂️ Darth Sidious-like tone in chatbot
-- ⚫ Transparent UI with red-accented styling
-- 🛰️ Galactic, mysterious vibe throughout
+This project was built for a **Star Wars-themed hackathon**. We embraced the **dark aesthetic and philosophical contrast** between Sith and Jedi:
+
+- Darth Sidious-style chatbot tone
+- Transparent black/red UI
+- Sith mode with sarcastic, dominating AI tone
+- Galactic vibes via music, visuals, and layout
 
 ---
 
 ## 🚀 Deployment
 
-The app is hosted on **Streamlit Cloud**:  
-🔗 [https://sith-studyflow-pmjfrw4iascbgerypsz9y6.streamlit.app/](https://sith-studyflow-pmjfrw4iascbgerypsz9y6.streamlit.app/)
+Hosted on **Streamlit Cloud**:  
+🔗 [Try Sith StudyFlow now](https://sith-studyflow-pmjfrw4iascbgerypsz9y6.streamlit.app/)
 
 ---
 
@@ -150,7 +150,7 @@ Create a `.streamlit/secrets.toml` file:
 groq_api_key = "your_groq_api_key_here"
 ```
 
-> ⚠️ **Do not commit your secrets.toml** — it's ignored via `.gitignore`.
+> ⚠️ Do **not** commit your API key or secrets.toml. It’s safely excluded via `.gitignore`.
 
 ---
 
@@ -170,7 +170,7 @@ groq_api_key = "your_groq_api_key_here"
 
 ## 📌 Requirements
 
-Here's a sample `requirements.txt`:
+Here’s a sample `requirements.txt`:
 
 ```
 streamlit
@@ -184,27 +184,27 @@ requests
 
 ## 📍 Domain: AI / ML
 
-This project falls under the **AI/ML domain** because:
-- It uses **Groq-hosted LLMs** for natural language interaction.
-- Implements **chat memory and tagging** for intelligent assistance.
-- Applies mood classification for music selection (UX-level AI).
+This project falls under **AI/ML** because:
+
+- It uses a **Groq-hosted LLM** for natural conversation.
+- Applies **chat memory, context understanding**, and **mood-based UI logic**.
+- Future extensions include **emotion detection** and **Spotify control via AI mood**.
 
 ---
 
 ## 💡 Future Improvements
 
-- Spotify API integration with real-time playlist control.
-- Voice input/output chatbot (mic + TTS).
-- Pomodoro timer linked with schedule/tasks.
-- Persistent memory using external DB (e.g., Supabase).
-- Improved multi-user support with authentication.
-- **User profile creation and customizable preferences.**
+- Spotify API integration (dynamic mood-based playlists)
+- Voice input/output assistant (microphone + TTS)
+- Persistent memory via Supabase or Firebase
+- Pomodoro timer integration with tasks
+- Multi-user authentication support
+- **User profile creation & customization**
 
 ---
 
-## ✨ Credits
+## ✨ Created By
 
-**Created by:**
 - Aravind M  
 - Mano Karthik  
 - Pranavamurthy K S  
