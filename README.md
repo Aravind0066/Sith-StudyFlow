@@ -14,6 +14,15 @@ As a student, I was frustrated switching between:
 So I decided to **combine all three** into a **single app** that integrates:
 > 🎶 Mood-based music + 🗓️ Productivity planner + 🤖 AI assistant
 
+One of the key ideas was to detect the **user's mood dynamically from the chatbot conversation history** and play music that matches that mood automatically.
+
+> For example:
+> - If you're stressed or angry → play **intense** tracks  
+> - If you're relaxed → play **calm** tracks  
+> - If you're focused and asking many questions → play **focus** tracks  
+
+Originally, we planned to **integrate with the Spotify API** so that the detected mood would **trigger playback of matching Spotify playlists**. However, due to time constraints, we currently include only a limited set of **local music files**.
+
 This is a **basic prototype** built during a hackathon and can be **scaled significantly** in the future.
 
 > ⚠️ **Note:** Only limited local music tracks are included for now.  
@@ -83,6 +92,13 @@ Spotify API integration was not completed in time.
 - Maintain multiple chat sessions.
 - Rename, delete, and export past conversations.
 - Inline operations (hover menu) for session control.
+
+---
+
+### 8. 🚀 Pomodoro Timer
+- Classic 25–5 Pomodoro technique to stay focused.
+- Task tracking linked with Pomodoro intervals.
+- **✨ Check this out:** A small animated 3D rocket appears when the timer starts!
 
 ---
 
