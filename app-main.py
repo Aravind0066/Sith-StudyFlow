@@ -883,29 +883,9 @@ elif st.session_state.selected_tab == "Notes":
             st.markdown(f"💡 Suggestion:** {suggestion}")
 
 
-# Initialize session state variables
-if "selected_tab" not in st.session_state:
-    st.session_state.selected_tab = "Pomodoro"
-
-if "pomo_phase" not in st.session_state:
-    st.session_state.pomo_phase = "Focus"
-
-if "pomo_running" not in st.session_state:
-    st.session_state.pomo_running = False
-
-if "pomo_end_time" not in st.session_state:
-    st.session_state.pomo_end_time = None
-
-if "default_pomo_duration" not in st.session_state:
-    st.session_state.default_pomo_duration = 25
-
-if "default_break_duration" not in st.session_state:
-    st.session_state.default_break_duration = 5
-
 # --- POMODORO TAB ---
 from datetime import datetime, timedelta
 import streamlit as st
-import time
 
 if st.session_state.selected_tab == "Pomodoro":
     st.subheader("🚀 Sith Pomodoro Mode")
@@ -920,65 +900,130 @@ if st.session_state.selected_tab == "Pomodoro":
     # Rocket animation placeholder
     rocket_placeholder = st.empty()
 
-    # Show rocket animation only during focus phase while running
-    if st.session_state.pomo_running and st.session_state.pomo_phase == "Focus":
-        rocket_placeholder.markdown("""
+    # Show rocket animation ONLY during active focus phase
+    if (st.session_state.pomo_running and 
+        st.session_state.pomo_phase == "Focus" and 
+        not st.session_state.pomo_paused):
+        
+        rocket_placeholder.markdown(f"""
         <style>
-        @keyframes zigzag-fly {
-            0%   { transform: translate(0vw, 0px) rotate(-10deg); }
-            20%  { transform: translate(20vw, -30px) rotate(5deg); }
-            40%  { transform: translate(40vw, 30px) rotate(-5deg); }
-            60%  { transform: translate(60vw, -20px) rotate(8deg); }
-            80%  { transform: translate(80vw, 20px) rotate(-8deg); }
-            100% { transform: translate(100vw, 0px) rotate(0deg); }
-        }
+        @keyframes zigzag-fly {{
+            0%   {{ transform: translate(0vw, 0px) rotate(-10deg); }}
+            20%  {{ transform: translate(20vw, -30px) rotate(5deg); }}
+            40%  {{ transform: translate(40vw, 30px) rotate(-5deg); }}
+            60%  {{ transform: translate(60vw, -20px) rotate(8deg); }}
+            80%  {{ transform: translate(80vw, 20px) rotate(-8deg); }}
+            100% {{ transform: translate(100vw, 0px) rotate(0deg); }}
+        }}
 
-        .zigzag-rocket {
+        .zigzag-rocket {{
             font-size: 60px;
             position: absolute;
             top: 20px;
             left: 0;
             z-index: 999;
             animation: zigzag-fly 12s linear infinite;
-        }
+        }}
 
-        .rocket-wrapper {
+        .rocket-wrapper {{
             position: relative;
             height: 150px;
             overflow: hidden;
-        }
+        }}
         </style>
         <div class="rocket-wrapper">
             <span class="zigzag-rocket">🚀</span>
         </div>
         """, unsafe_allow_html=True)
+    else:
+        # Clear the rocket animation when not in active focus mode
+        rocket_placeholder.empty()
 
     # Start button
     if not st.session_state.pomo_running:
         if st.button("▶ Start Timer"):
             st.session_state.pomo_running = True
+            st.session_state.pomo_paused = False
             st.session_state.pomo_phase = "Focus"
-            st.session_state.pomo_end_time = datetime.now() + timedelta(minutes=focus_minutes)
+            st.session_state.pomo_total_duration = focus_minutes * 60  # in seconds
+            st.session_state.pomo_end_time = datetime.now() + timedelta(seconds=st.session_state.pomo_total_duration)
             st.rerun()
-
-    # Timer logic
+    
+    # Control buttons when timer is running
     if st.session_state.pomo_running:
-        now = datetime.now()
-        remaining = st.session_state.pomo_end_time - now
+        col1, col2 = st.columns(2)
 
-        if remaining.total_seconds() <= 0:
-            if st.session_state.pomo_phase == "Focus":
-                st.session_state.pomo_phase = "Break"
-                st.session_state.pomo_end_time = datetime.now() + timedelta(minutes=break_minutes)
+        with col1:
+            if st.button("⏸ Pause" if not st.session_state.pomo_paused else "▶ Resume"):
+                if st.session_state.pomo_paused:
+                    # Resume timer
+                    st.session_state.pomo_end_time = datetime.now() + timedelta(seconds=st.session_state.remaining_seconds)
+                    st.session_state.pomo_paused = False
+                else:
+                    # Pause timer - calculate remaining time
+                    now = datetime.now()
+                    st.session_state.remaining_seconds = max(0, int((st.session_state.pomo_end_time - now).total_seconds()))
+                    st.session_state.pomo_paused = True
+                st.rerun()
+
+        with col2:
+            if st.button("⏹ Stop"):
+                st.session_state.pomo_running = False
+                st.session_state.pomo_paused = False
+                st.session_state.pomo_end_time = None
+                st.session_state.pomo_total_duration = None
+                if 'remaining_seconds' in st.session_state:
+                    del st.session_state.remaining_seconds
+                st.success("⏹ Pomodoro stopped.")
+                st.rerun()
+
+    # Timer display and countdown logic
+    if st.session_state.pomo_running:
+        if st.session_state.pomo_paused:
+            # Show paused countdown
+            mins, secs = divmod(st.session_state.remaining_seconds, 60)
+            st.markdown(
+                f"<h2 style='text-align:center; color:#ff6666; text-shadow: 0 0 10px #ff6666;'>⏸ {st.session_state.pomo_phase} Paused: {mins:02d}:{secs:02d}</h2>",
+                unsafe_allow_html=True
+            )
+        else:
+            # Timer is running - calculate remaining time
+            now = datetime.now()
+            remaining = st.session_state.pomo_end_time - now
+            remaining_seconds = int(remaining.total_seconds())
+            
+            if remaining_seconds <= 0:
+                # Time's up - switch phases
+                if st.session_state.pomo_phase == "Focus":
+                    st.session_state.pomo_phase = "Break"
+                    st.session_state.pomo_end_time = datetime.now() + timedelta(minutes=break_minutes)
+                    st.success("🎉 Focus time complete! Take a break.")
+                else:
+                    st.session_state.pomo_phase = "Focus"
+                    st.session_state.pomo_end_time = datetime.now() + timedelta(minutes=focus_minutes)
+                    st.success("🎯 Break time over! Back to focus.")
+                st.rerun()
             else:
-                st.session_state.pomo_phase = "Focus"
-                st.session_state.pomo_end_time = datetime.now() + timedelta(minutes=focus_minutes)
-            st.rerun()
-
-        mins, secs = divmod(int(remaining.total_seconds()), 60)
-        st.markdown(
-            f"<h2 style='text-align:center; color:#ffe81f;'>⏳ {st.session_state.pomo_phase} Time: {mins:02d}:{secs:02d}</h2>",
-            unsafe_allow_html=True
-        )
-        time.sleep(1)
-        st.rerun()
+                # Show active countdown
+                # Show active countdown
+                mins, secs = divmod(remaining_seconds, 60)
+                
+                if st.session_state.pomo_phase == "Focus":
+                    st.markdown(
+                        f"<h2 style='text-align:center; color:#ffe81f; text-shadow: 0 0 10px #ffe81f;'>🎯 Focus Time: {mins:02d}:{secs:02d}</h2>",
+                        unsafe_allow_html=True
+                    )
+                else:
+                    st.markdown(
+                        f"<h2 style='text-align:center; color:#00ff00; text-shadow: 0 0 10px #00ff00;'>☕ Break Time: {mins:02d}:{secs:02d}</h2>",
+                        unsafe_allow_html=True
+                    )
+                
+                # Auto-refresh every second using a more controlled approach
+                if remaining_seconds > 0:
+                    # Use st.empty() placeholder for live updates
+                    import time
+                    time.sleep(0.1)  # Small delay to prevent excessive refreshing
+                    st.rerun()
+                
+                
