@@ -18,6 +18,9 @@ Constantly switching between them felt fragmented and inefficient. So, we decide
 
 This is a **basic prototype** built during a **Star Wars-themed hackathon** and has **massive potential for future scaling**.
 
+📽️ Want to see our pitch visually?  
+👉 [Gamma Deck: Study Flow – AI-Powered Productivity Companion](https://gamma.app/docs/Study-Flow-AI-Powered-Productivity-Companion-w1vmfoozw4jd8pq)
+
 > ⚠️ **Note:**  
 > - Only limited local music tracks are available right now.  
 > - Spotify API was attempted but couldn’t be integrated in time.  
@@ -116,6 +119,9 @@ This project was built for a **Star Wars-themed hackathon**. We embraced the **d
 Hosted on **Streamlit Cloud**:  
 🔗 [Try Sith StudyFlow now](https://sith-studyflow-pmjfrw4iascbgerypsz9y6.streamlit.app/)
 
+📽️ Want to see our idea pitch visually?  
+👉 [Gamma Presentation](https://gamma.app/docs/Study-Flow-AI-Powered-Productivity-Companion-w1vmfoozw4jd8pq)
+
 ---
 
 ## 🔧 Installation & Running Locally
@@ -205,10 +211,11 @@ This project falls under **AI/ML** because:
 
 ## ✨ Created By
 
-- Aravind M  
-- Mano Karthik  
-- Pranavamurthy K S  
-- Raghav Prasanna
+- [Aravind M](https://github.com/Aravind0066)  
+- [Mano Karthik](https://github.com/mano45-sudo)  
+- [Pranavamurthy K S](https://github.com/pranavamurthyks)  
+- [Raghav Prasanna](https://github.com/RaghavPrasanna9207)
+
 
 ---
 
