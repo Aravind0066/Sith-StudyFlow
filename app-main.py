@@ -936,7 +936,7 @@ if st.session_state.selected_tab == "Pomodoro":
         .zigzag-rocket {
             font-size: 60px;
             position: absolute;
-            top: 120px;
+            top: 20px;
             left: 0;
             z-index: 999;
             animation: zigzag-fly 12s linear infinite;
